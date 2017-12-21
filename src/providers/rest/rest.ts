@@ -32,7 +32,7 @@ export class RestProvider {
 
   private apiUrlLoginWithMd5 = 'https://imoocqa.gugujiankong.com/api/account/loginwithmd5';
   private apiUrlUserInfo = 'https://imoocqa.gugujiankong.com/api/account/userinfo';
-  private apiUrlUpdateNickName = 'https://imoocqa.gugujiankong.com/api/account/updatenickname';
+  private apiUrlUpdateNickName = 'https://imoocqa.gugujiankong.com/api/account/updatenickname'; 
   //question
   private apiUrlQuestionSave = 'https://imoocqa.gugujiankong.com/api/question/save';
   private apiUrlQuestionList = 'https://imoocqa.gugujiankong.com/api/question/list?index=1&number=10';
