@@ -1,6 +1,7 @@
 import {
   Http,
-  Response
+  Response,
+  Headers
 } from '@angular/http';
 import {
   Injectable
@@ -18,6 +19,11 @@ import 'rxjs/add/operator/catch';
 */
 @Injectable()
 export class RestProvider {
+
+
+  headers: Headers = new Headers({
+    'Content-Type': 'application/json'
+  });
 
   constructor(public http: Http) {
     //console.log('Hello RestProvider Provider');
@@ -40,11 +46,15 @@ export class RestProvider {
   private apiUrlAnswer = "https://imoocqa.gugujiankong.com/api/question/answer";
 
   //自己测试服务器调用
-  private myAppUrlLogin = 'http://192.168.1.103:3500/myappAuth/login';
-  private myAppUrlRegister = 'http://192.168.1.103:3500/myappAuth/register';
-  private myAppUrlUserInfo = 'http://192.168.1.103:3500/myappAuth/userinfo';
-  private myAppUrlUserInfoUpdate = 'http://192.168.1.103:3500/myappAuth/userinfoupdate';
-  
+  private myAppUrlLogin = 'http://192.168.1.111:3500/myappAuth/login';
+  private myAppUrlRegister = 'http://192.168.1.111:3500/myappAuth/register';
+  private myAppUrlUserInfo = 'http://192.168.1.111:3500/myappAuth/userinfo';
+  private myAppUrlUserInfoUpdate = 'http://192.168.1.111:3500/myappAuth/userinfoupdate';
+  private myAppSaveQuestion = 'http://192.168.1.111:3500/userQuestion/save';
+  private myAppGetQuestionList = 'http://192.168.1.111:3500/userQuestion/getqusetionlist';
+  private myAppGetQuestion = 'http://192.168.1.111:3500/userQuestion/getquestion';
+  private myAppAnswer = 'http://192.168.1.111:3500/userAnswer/answer';
+
   /**
    * 根据用户的电话号码和密码进行登录
    * 
@@ -94,6 +104,34 @@ export class RestProvider {
     return this.getUrlReturn(this.myAppUrlUserInfo+"?token="+token+"&UserId="+userid);
   }
 
+
+  SaveQuestion(data):Observable<string[]>{
+    const uri = this.myAppSaveQuestion;
+    return this.http.post(uri,JSON.stringify(data),{headers:this.headers})
+    .map(this.extractData)
+    .catch(this.handleError);
+  }
+
+  getQusetionList(index,count):Observable<string[]>{
+    return this.getUrlReturn(this.myAppGetQuestionList+"?index="+index+"&count="+count);
+  }
+
+
+  getQuestion(token,id):Observable<string[]>{
+    return this.getUrlReturn(this.myAppGetQuestion+"?q_id="+id+"&token="+token);
+  }
+
+
+  userAnswer(token,userId,q_id,content){
+    return this.http.get(this.myAppAnswer,{params:{
+      'token':token,
+      'user':userId,
+      'question':q_id,
+      'content':content
+    }}).map(this.extractData)
+    .catch(this.handleError);
+  }
+
   /**
    * 处理接口返回的数据，处理成JSON
    * 
@@ -103,7 +141,6 @@ export class RestProvider {
    * @memberof RestProvider
    */
   private extractData(res: Response) {
-    console.log(res);
     let body = res.json();
     console.log(body);
     return body || {};
@@ -132,5 +169,8 @@ export class RestProvider {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
+
+
+
 
 }

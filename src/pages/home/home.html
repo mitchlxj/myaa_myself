@@ -1,17 +1,65 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>主页</ion-title>
-  </ion-navbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="如何学习ionic开发"></ion-searchbar>
+    <ion-icon class="top_header_message" name="text" (tap)="gotoChat()"></ion-icon>
+  </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <h2>hello world</h2>
-  <p>
-    This starter project comes with simple tabs-based layout for apps
-    that are going to primarily use a Tabbed UI.
-  </p>
-  <p>
-    Take a look at the <code>src/pages/</code> directory to add or change tabs,
-    update any existing page or create new pages.
-  </p>
+<ion-content>
+  <div class="floatMenu">
+    <ion-grid>
+      <ion-row align-items-center>
+        <ion-col text-center>
+          <div (tap)="gotoQuestion()">
+            <ion-icon name="create"></ion-icon> 提问
+          </div>
+        </ion-col>
+        <ion-col text-center>
+          <div>
+            <span style="float:left;color:#dddddd;">|</span>
+            <ion-icon name="albums"></ion-icon> 回答
+            <span style="float:right;color:#dddddd;">|</span>
+          </div>
+        </ion-col>
+        <ion-col text-center>
+          <div>
+            <ion-icon name="share-alt"></ion-icon> 分享
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <ion-refresher (ionRefresh)="doRefresh($event)" >
+    <ion-refresher-content 
+    pullingIcon="arrow-dropdown" 
+    pullingText="下拉刷新" 
+    refreshingSpinner="circles" 
+    refreshingText="数据加载中...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+
+  <ion-card *ngFor="let ql of questionList" (click)="gotoDetails(ql._id)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="ql.userId.avatar"/>
+      </ion-avatar>
+      <p>{{ql.userId.nickname}}提出该问题
+        <ion-icon class="more_button" name="more"></ion-icon>
+      </p>
+    </ion-item>
+    <h2>{{ql.title}}</h2>
+    <ion-card-content>
+      <p>{{ql.content}}</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col text-left>
+        <ion-note>
+            20&nbsp;赞同&nbsp;&nbsp;·&nbsp;&nbsp; 30&nbsp;评论&nbsp;&nbsp;·&nbsp;&nbsp;关注问题
+        </ion-note>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
 </ion-content>

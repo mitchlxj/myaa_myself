@@ -73,6 +73,9 @@ import {
 import {
   Transfer,
 } from '@ionic-native/transfer';
+import { QuestionPageModule } from '../pages/question/question.module';
+import { DetailsPageModule } from '../pages/details/details.module';
+import { AnswerPageModule } from '../pages/answer/answer.module';
 
 @NgModule({
   declarations: [
@@ -90,6 +93,9 @@ import {
     LoginPageModule,
     UserPageModule,
     HeadfacePageModule,
+    QuestionPageModule,
+    AnswerPageModule,
+    DetailsPageModule,
     HttpModule, //全局需要导入HTTP
     IonicStorageModule.forRoot(), //全局定义storage模块
     IonicModule.forRoot(MyApp, {
