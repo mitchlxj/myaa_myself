@@ -54,6 +54,9 @@ export class RestProvider {
   private myAppGetQuestionList = 'http://192.168.1.111:3500/userQuestion/getqusetionlist';
   private myAppGetQuestion = 'http://192.168.1.111:3500/userQuestion/getquestion';
   private myAppAnswer = 'http://192.168.1.111:3500/userAnswer/answer';
+  private myAppIsFavourite = 'http://192.168.1.111:3500/myappAuth/isfavourite';
+  private myAppGetUserQuestionList = 'http://192.168.1.111:3500/userQuestion/getuserquestionlist';
+
 
   /**
    * 根据用户的电话号码和密码进行登录
@@ -117,8 +120,18 @@ export class RestProvider {
   }
 
 
-  getQuestion(token,id):Observable<string[]>{
-    return this.getUrlReturn(this.myAppGetQuestion+"?q_id="+id+"&token="+token);
+  getQuestion(token,id,userId):Observable<string[]>{
+    return this.getUrlReturn(this.myAppGetQuestion+"?q_id="+id+"&token="+token+"&userId="+userId);
+  }
+
+
+  isFavourite(q_id,user_id):Observable<string[]>{
+    return this.getUrlReturn(this.myAppIsFavourite+"?q_id="+q_id+"&userId="+user_id);
+  }
+
+
+  getUserQuestionList(userid,type):Observable<string[]>{
+    return this.getUrlReturn(this.myAppGetUserQuestionList+"?userid="+userid+"&type="+type);
   }
 
 

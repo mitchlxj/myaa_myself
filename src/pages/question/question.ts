@@ -77,7 +77,7 @@ export class QuestionPage extends BaseUI {
               
             }else if(f['Status']==='403'){
               super.showToast(this.toastCtrl,f["StatusContent"]);
-              this.navCtrl.parent.select(4);
+              loading.dismiss();
             }
              else {
               loading.dismiss();
@@ -87,7 +87,6 @@ export class QuestionPage extends BaseUI {
         })
       }else{
         super.showToast(this.toastCtrl, "请先登录，在提交问题！");
-        this.navCtrl.parent.select(4);
       }
     })
     

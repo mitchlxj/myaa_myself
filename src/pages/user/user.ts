@@ -61,12 +61,9 @@ export class UserPage extends BaseUI {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad UserPage');
-  }
-
-  ionViewDidEnter() {
     this.loadUserPage();
   }
+
 
   loadUserPage() {
     this.storage.get('token').then((val) => {

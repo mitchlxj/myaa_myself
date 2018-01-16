@@ -8,6 +8,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { Tabs } from 'ionic-angular/components/tabs/tabs';
 import { DetailsPage } from '../details/details';
+import { FavoriatePage } from '../favoriate/favoriate';
 
 @Component({
   selector: 'page-home',
@@ -16,11 +17,13 @@ import { DetailsPage } from '../details/details';
 export class HomePage extends BaseUI{
 
 
-  questionList:string[];
+  questionList:string[]=[];
 
 
   private index:number =0;
   private count:number =10;
+
+  infiniteScroll : any;
 
   constructor(
     public navCtrl: NavController,
@@ -36,9 +39,15 @@ export class HomePage extends BaseUI{
     this.getFeeds();
    }
 
+
   gotoQuestion(){
     const modal = this.modalCtrl.create(QuestionPage);
     modal.present();
+    modal.onDidDismiss(_=>{
+      this.index = 0;
+      this.questionList = [];
+      this.getFeeds();
+    })
   }
 
 
@@ -48,8 +57,8 @@ export class HomePage extends BaseUI{
     this.rest.getQusetionList(this.index,this.count)
     .subscribe(q_list=>{
       if(q_list['Status']==='OK'){
-        this.questionList = q_list['QuestionList'];
-        
+        this.questionList=[...this.questionList,...q_list['QuestionList']];
+        console.log(this.questionList);
       }else{
         super.showToast(this.toast,q_list['StatusContent']);
       }
@@ -70,8 +79,15 @@ export class HomePage extends BaseUI{
 
 
   doRefresh(refresher){
+    this.index = 0;
+    this.questionList = [];
     this.getFeeds();
     refresher.complete();
+    if(this.infiniteScroll!= null)
+    {
+      this.infiniteScroll.enable(true);
+    }
+    
   }
 
 
@@ -79,5 +95,29 @@ export class HomePage extends BaseUI{
     this.navCtrl.push(DetailsPage,{'id':id});
   }
 
+  doInfinite(infinite){
+    this.infiniteScroll = infinite;
+    this.index = this.index+this.count;
+    this.rest.getQusetionList(this.index,this.count)
+    .subscribe(q_list=>{
+      if(q_list['Status']==='OK'){
+        
+          this.questionList=[...this.questionList,...q_list['QuestionList']];
+
+          infinite.complete();
+
+          if(q_list['QuestionList'].length <= 0){
+            infinite.enable(false);
+          }
+          
+        }
+      })
+  }
+
+
+
+  gotoFavourite(){
+    this.navCtrl.push(FavoriatePage);
+  }
 
 }

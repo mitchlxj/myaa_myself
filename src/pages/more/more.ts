@@ -65,7 +65,11 @@ export class MorePage extends BaseUI {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MorePage');
+    
+  }
+
+  ionViewDidEnter(){
+    this.loadUserPage();
   }
 
   showModal() {
@@ -78,9 +82,6 @@ export class MorePage extends BaseUI {
     modal.present();
   }
 
-  ionViewDidEnter() {
-    this.loadUserPage();
-  }
 
   loadUserPage() {
     this.storage.get('token').then((val) => {

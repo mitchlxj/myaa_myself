@@ -69,7 +69,7 @@ export class LoginPage extends BaseUI {
             this.dismiss();
           }else if(res['Status']==='403'){
             super.showToast(this.toastCtrl,res["StatusContent"]);
-            this.navCtrl.parent.select(4);
+            loding.dismiss();
           } 
           
           else {

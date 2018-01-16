@@ -23,9 +23,9 @@
         &nbsp;回答
       </button>
       &nbsp;&nbsp;
-      <button ion-button small color="secondary">
+      <button ion-button small color="secondary" (click)=isFavouriteClick()>
         <ion-icon name="add"></ion-icon>
-        &nbsp;关注
+        &nbsp;{{isFavourite?'取消关注':'关注'}}
       </button>
     </ion-card-content>
   </ion-card>
@@ -33,7 +33,7 @@
   <ion-card *ngFor="let answer of question?.answers">
     <ion-item>
       <ion-avatar item-start>
-        <img [src]="answer?.avatar"/>
+        <img [src]="answer?.avatar" />
       </ion-avatar>
       <p>{{answer?.userNickName}}</p>
     </ion-item>

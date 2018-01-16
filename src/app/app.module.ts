@@ -76,6 +76,12 @@ import {
 import { QuestionPageModule } from '../pages/question/question.module';
 import { DetailsPageModule } from '../pages/details/details.module';
 import { AnswerPageModule } from '../pages/answer/answer.module';
+import { ComponentsModule } from '../components/components.module';
+import { FavoriatePage } from '../pages/favoriate/favoriate';
+import { FavoriatePageModule } from '../pages/favoriate/favoriate.module';
+import { ChatdetailsPageModule } from '../pages/chatdetails/chatdetails.module';
+import { EmojiProvider } from '../providers/emoji/emoji';
+import { ChatserviceProvider } from '../providers/chatservice/chatservice';
 
 @NgModule({
   declarations: [
@@ -84,10 +90,12 @@ import { AnswerPageModule } from '../pages/answer/answer.module';
     HomePage,
     NotificationPage,
     ChatPage,
-    TabsPage
+    TabsPage,
+    
   ],
   imports: [
     BrowserModule,
+    IonicStorageModule.forRoot(), //全局定义storage模块
     DiscoveryPageModule,
     RegisterPageModule,
     LoginPageModule,
@@ -96,8 +104,10 @@ import { AnswerPageModule } from '../pages/answer/answer.module';
     QuestionPageModule,
     AnswerPageModule,
     DetailsPageModule,
+    ComponentsModule,
+    ChatdetailsPageModule,
+    FavoriatePageModule,
     HttpModule, //全局需要导入HTTP
-    IonicStorageModule.forRoot(), //全局定义storage模块
     IonicModule.forRoot(MyApp, {
       backButtonText: '返回'
     })
@@ -124,6 +134,8 @@ import { AnswerPageModule } from '../pages/answer/answer.module';
     Transfer,
     Camera,
     FilePath,
+    EmojiProvider,
+    ChatserviceProvider,
   ]
 })
 export class AppModule {}

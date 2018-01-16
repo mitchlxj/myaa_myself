@@ -15,9 +15,9 @@
           </div>
         </ion-col>
         <ion-col text-center>
-          <div>
+          <div (tap)="gotoFavourite()">
             <span style="float:left;color:#dddddd;">|</span>
-            <ion-icon name="albums"></ion-icon> 回答
+            <ion-icon name="albums"></ion-icon> 关注
             <span style="float:right;color:#dddddd;">|</span>
           </div>
         </ion-col>
@@ -30,12 +30,8 @@
     </ion-grid>
   </div>
 
-  <ion-refresher (ionRefresh)="doRefresh($event)" >
-    <ion-refresher-content 
-    pullingIcon="arrow-dropdown" 
-    pullingText="下拉刷新" 
-    refreshingSpinner="circles" 
-    refreshingText="数据加载中...">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pullingIcon="arrow-dropdown" pullingText="下拉刷新" refreshingSpinner="circles" refreshingText="数据加载中...">
     </ion-refresher-content>
   </ion-refresher>
 
@@ -43,7 +39,7 @@
   <ion-card *ngFor="let ql of questionList" (click)="gotoDetails(ql._id)">
     <ion-item>
       <ion-avatar item-start>
-        <img [src]="ql.userId.avatar"/>
+        <img [src]="ql.userId.avatar" />
       </ion-avatar>
       <p>{{ql.userId.nickname}}提出该问题
         <ion-icon class="more_button" name="more"></ion-icon>
@@ -56,10 +52,15 @@
     <ion-row>
       <ion-col text-left>
         <ion-note>
-            20&nbsp;赞同&nbsp;&nbsp;·&nbsp;&nbsp; 30&nbsp;评论&nbsp;&nbsp;·&nbsp;&nbsp;关注问题
+          20&nbsp;赞同&nbsp;&nbsp;·&nbsp;&nbsp; 30&nbsp;评论&nbsp;&nbsp;·&nbsp;&nbsp;关注问题
         </ion-note>
       </ion-col>
     </ion-row>
   </ion-card>
+
+  <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="加载更多...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>

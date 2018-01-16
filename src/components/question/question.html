@@ -1,0 +1,24 @@
+<!-- Generated template for the QuestionComponent component -->
+<div>
+  <ion-card *ngFor="let ql of questionList" (click)="gotoDetails(ql._id)">
+    <ion-item>
+      <ion-avatar item-start>
+        <img [src]="ql.userId.avatar" />
+      </ion-avatar>
+      <p>{{ql.userId.nickname}}提出该问题
+        <ion-icon class="more_button" name="more"></ion-icon>
+      </p>
+    </ion-item>
+    <h2>{{ql.title}}</h2>
+    <ion-card-content>
+      <p>{{ql.content}}</p>
+    </ion-card-content>
+    <ion-row>
+      <ion-col text-left>
+        <ion-note>
+          20&nbsp;赞同&nbsp;&nbsp;·&nbsp;&nbsp; 30&nbsp;评论&nbsp;&nbsp;·&nbsp;&nbsp;关注问题
+        </ion-note>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</div>
