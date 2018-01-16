@@ -20,7 +20,7 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 export class ChatdetailsPage {
 
   chatUserName: string;
-  chatUserAvatar:string;
+  chatUserAvatar: string;
 
   chatUserId: string;
 
@@ -81,10 +81,12 @@ export class ChatdetailsPage {
 
 
               //获取服务器上对应的聊天记录
-              this.getMessage(this.userId, this.chatUserId).map(res => {
-                this.scrollToBottom();
-              });
-
+              this.chatService.getMessageList(this.userId, this.chatUserId)
+                .subscribe(res => {
+                  this.messageList = res;
+                  this.scrollToBottom();
+                })
+                
             }, error => this.errorMessage = error);
 
 
@@ -138,7 +140,6 @@ export class ChatdetailsPage {
     this.chatService.getMessageList(userId, touserId)
       .subscribe(res => {
         this.messageList = res;
-        console.log(res);
       })
 
 
@@ -161,8 +162,8 @@ export class ChatdetailsPage {
       username: this.userName,
       userImgUrl: this.userImgUrl,
       toUserId: this.chatUserId,
-      tousername:this.chatUserName,
-      touserImgUrl:this.chatUserAvatar,
+      tousername: this.chatUserName,
+      touserImgUrl: this.chatUserAvatar,
       time: Date.now(),
       message: this.eidtorMessage,
       satatus: 'pending'

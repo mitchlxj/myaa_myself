@@ -70,9 +70,10 @@ export class ChatserviceProvider {
   }
 
   wsGetMessage(messageSend) {
-
-    this.event.publish('chat.received', messageSend, Date.now());
-
+    const tmpMessage = JSON.parse(messageSend);
+    if(tmpMessage.type=='chat'){
+      this.event.publish('chat.received', tmpMessage, Date.now());
+    }
   }
 
 
