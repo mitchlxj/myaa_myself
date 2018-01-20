@@ -40,7 +40,6 @@ export class userInfo {
 export class ChatserviceProvider {
 
 
-  ws: WebSocket;
 
   constructor(
     public http: Http,
@@ -48,32 +47,6 @@ export class ChatserviceProvider {
     public storage: Storage
   ) {
     console.log('chatservice构造函数');
-  }
-
-  connect(url: string): Observable<any> {
-    this.ws = new WebSocket(url);
-    return new Observable(
-      observer => {
-        this.ws.onmessage = (event) => observer.next(event.data);
-        this.ws.onerror = (event) => observer.error(event);
-        this.ws.onclose = (event) => observer.complete();
-      }
-    );
-  }
-
-  wsSend(message) {
-    this.ws.send(message);
-  }
-
-  wsClose() {
-    this.ws.close();
-  }
-
-  wsGetMessage(messageSend) {
-    const tmpMessage = JSON.parse(messageSend);
-    if(tmpMessage.type=='chat'){
-      this.event.publish('chat.received', tmpMessage, Date.now());
-    }
   }
 
 

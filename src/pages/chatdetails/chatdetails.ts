@@ -4,6 +4,7 @@ import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
 import { ChatserviceProvider, ChatMessage } from '../../providers/chatservice/chatservice';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
+import { WebsocketProvider } from '../../providers/websocket/websocket';
 
 /**
  * Generated class for the ChatdetailsPage page.
@@ -47,13 +48,14 @@ export class ChatdetailsPage {
     public storage: Storage,
     public chatService: ChatserviceProvider,
     public event: Events,
-    public viewCtrl: ViewController
+    public viewCtrl: ViewController,
+    public webSocket: WebsocketProvider
 
   ) {
 
-    this.chatUserId = this.navParams.get('userid');
-    this.chatUserName = this.navParams.get('username');
-    this.chatUserAvatar = this.navParams.get('avatar');
+    this.chatUserId = this.navParams.get('UserId');
+    this.chatUserName = this.navParams.get('UserNickName');
+    this.chatUserAvatar = this.navParams.get('UserHeadFace');
   }
 
   ionViewDidLoad() {
@@ -64,10 +66,6 @@ export class ChatdetailsPage {
     this.event.unsubscribe('chat.received');
   }
 
-  ionViewDidLeave() {
-    this.chatService.wsClose();
-    //this.viewCtrl.dismiss();
-  }
 
   ionViewDidEnter() {
     this.storage.get('token').then(token => {
@@ -88,22 +86,11 @@ export class ChatdetailsPage {
                 })
                 
             }, error => this.errorMessage = error);
-
-
         }
       })
     })
 
-    //开启websocket通讯来接收消息
-    this.chatService.connect("ws://192.168.1.111:3600/userId/" + this.userId)
-      .subscribe(
-      data => {
-        this.chatService.wsGetMessage(data);
-      },
-      error => console.log(error),
-      () => console.log('服务器已断开')
-      );
-
+   
 
 
     //监控event是否捕获到消息并合并到messageList中显示
@@ -182,7 +169,7 @@ export class ChatdetailsPage {
     }
 
 
-    this.chatService.wsSend(JSON.stringify(messageSend));
+    this.webSocket.wsSend(JSON.stringify(messageSend));
 
 
   }

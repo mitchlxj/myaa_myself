@@ -30,6 +30,7 @@ import {
 import {
   ToastController
 } from 'ionic-angular/components/toast/toast-controller';
+import { WebsocketProvider } from '../../providers/websocket/websocket';
 
 /**
  * Generated class for the MorePage page.
@@ -59,16 +60,17 @@ export class MorePage extends BaseUI {
     public storage: Storage,
     public loading: LoadingController,
     public rest: RestProvider,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    public webSocket:WebsocketProvider
   ) {
     super();
   }
 
   ionViewDidLoad() {
-    
+
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.loadUserPage();
   }
 
@@ -86,10 +88,10 @@ export class MorePage extends BaseUI {
   loadUserPage() {
     this.storage.get('token').then((val) => {
       if (val != null) {
-        this.storage.get('UserId').then(userid=>{
-           //加载用户数据
-        const loading = super.showLoading(this.loading, "加载中...");
-        this.rest.getUserInfo(val, userid).subscribe((userinfo) => {
+        this.storage.get('UserId').then(userid => {
+          //加载用户数据
+          const loading = super.showLoading(this.loading, "加载中...");
+          this.rest.getUserInfo(val, userid).subscribe((userinfo) => {
             console.log(JSON.stringify(userinfo));
             this.userinfo = userinfo;
             //判断token是否失效或伪造的，如果是的话就清空token重新登录
@@ -103,15 +105,18 @@ export class MorePage extends BaseUI {
             } else {
               //给资源文件增加一个后缀，去除缓存
               this.headFace = userinfo["UserHeadFace"] + "?" + (new Date()).valueOf();
-              
+
               console.log(this.headFace);
               this.notLogin = false;
               this.logined = true;
               loading.dismiss();
+
+              this.webSocket.wsOpenConnect();
+             
             }
           });
         });
-       
+
 
       } else {
         this.notLogin = true;

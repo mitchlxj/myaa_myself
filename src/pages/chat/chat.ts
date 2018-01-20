@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChatdetailsPage } from '../chatdetails/chatdetails';
+import { RestProvider } from '../../providers/rest/rest';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ChatPage page.
@@ -16,22 +18,30 @@ import { ChatdetailsPage } from '../chatdetails/chatdetails';
 })
 export class ChatPage {
 
+  users: string[];
 
-  userinfo:Object;
-  chatdetailsPage:any;
+  chatdetailsPage: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.userinfo = {
-      userid:'5a547021764a171a043158c4',
-      username:'小杰22',
-      avatar:'http://192.168.1.111:3500/myappAuth/getimg/19-014845_297.jpg',
-    }
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public rest: RestProvider,
+    public storage: Storage
+  ) {
 
     this.chatdetailsPage = ChatdetailsPage;
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ChatPage');
+    this.storage.get('UserId').then(userId => {
+      if(userId != null){
+        this.rest.getUsersList(userId)
+        .subscribe(users => {
+          this.users = users;
+        })
+      }
+    })
+
   }
 
 }

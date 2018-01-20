@@ -43,9 +43,7 @@ import {
 import {
   RestProvider
 } from '../providers/rest/rest';
-import {
-  LoginPageModule
-} from '../pages/login/login.module';
+
 import {
   HttpModule
 } from '@angular/http';
@@ -82,6 +80,9 @@ import { FavoriatePageModule } from '../pages/favoriate/favoriate.module';
 import { ChatdetailsPageModule } from '../pages/chatdetails/chatdetails.module';
 import { EmojiProvider } from '../providers/emoji/emoji';
 import { ChatserviceProvider } from '../providers/chatservice/chatservice';
+import { WebsocketProvider } from '../providers/websocket/websocket';
+import { LoginPageModule } from '../pages/login/login.module';
+
 
 @NgModule({
   declarations: [
@@ -92,18 +93,19 @@ import { ChatserviceProvider } from '../providers/chatservice/chatservice';
     ChatPage,
     TabsPage,
     
+    
   ],
   imports: [
     BrowserModule,
     IonicStorageModule.forRoot(), //全局定义storage模块
     DiscoveryPageModule,
     RegisterPageModule,
-    LoginPageModule,
     UserPageModule,
     HeadfacePageModule,
     QuestionPageModule,
     AnswerPageModule,
     DetailsPageModule,
+    LoginPageModule,
     ComponentsModule,
     ChatdetailsPageModule,
     FavoriatePageModule,
@@ -119,7 +121,6 @@ import { ChatserviceProvider } from '../providers/chatservice/chatservice';
     ChatPage,
     HomePage,
     NotificationPage,
-
     TabsPage
   ],
   providers: [
@@ -136,6 +137,8 @@ import { ChatserviceProvider } from '../providers/chatservice/chatservice';
     FilePath,
     EmojiProvider,
     ChatserviceProvider,
+    WebsocketProvider,
+
   ]
 })
 export class AppModule {}

@@ -49,6 +49,7 @@ export class RestProvider {
   private myAppUrlLogin = 'http://192.168.1.111:3500/myappAuth/login';
   private myAppUrlRegister = 'http://192.168.1.111:3500/myappAuth/register';
   private myAppUrlUserInfo = 'http://192.168.1.111:3500/myappAuth/userinfo';
+  private myAppUrlgetUsers = 'http://192.168.1.111:3500/myappAuth/users';
   private myAppUrlUserInfoUpdate = 'http://192.168.1.111:3500/myappAuth/userinfoupdate';
   private myAppSaveQuestion = 'http://192.168.1.111:3500/userQuestion/save';
   private myAppGetQuestionList = 'http://192.168.1.111:3500/userQuestion/getqusetionlist';
@@ -143,6 +144,11 @@ export class RestProvider {
       'content':content
     }}).map(this.extractData)
     .catch(this.handleError);
+  }
+
+
+  getUsersList(userId):Observable<string[]>{
+    return this.getUrlReturn(this.myAppUrlgetUsers+"?userId="+userId);
   }
 
   /**

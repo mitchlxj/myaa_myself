@@ -1,3 +1,21 @@
 page-chat {
+    .red-point{
 
+        position: absolute;
+
+        top: 8px;
+
+        left: 50px;
+        
+        content: ' ';
+        
+        height: 7px;
+        
+        width: 7px;
+        
+        border-radius: 50%;
+        
+        background-color: red;
+        
+        }
 }

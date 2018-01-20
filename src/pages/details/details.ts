@@ -91,8 +91,9 @@ export class DetailsPage extends BaseUI {
         })
       }else {
         super.showToast(this.toastCtrl, "您还没有登陆，无法查询");
+        this.viewCtrl.dismiss();
         this.navCtrl.parent.select(4);
-      }   
+      }
 
   })
 }
