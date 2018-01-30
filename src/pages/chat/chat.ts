@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ChatdetailsPage } from '../chatdetails/chatdetails';
 import { RestProvider } from '../../providers/rest/rest';
 import { Storage } from '@ionic/storage';
+import { WebsocketProvider } from '../../providers/websocket/websocket';
 
 /**
  * Generated class for the ChatPage page.
@@ -22,11 +23,14 @@ export class ChatPage {
 
   chatdetailsPage: any;
 
+  chatMessageCount:number;
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public rest: RestProvider,
-    public storage: Storage
+    public storage: Storage,
+    public websocket:WebsocketProvider
   ) {
 
     this.chatdetailsPage = ChatdetailsPage;
@@ -38,10 +42,17 @@ export class ChatPage {
         this.rest.getUsersList(userId)
         .subscribe(users => {
           this.users = users;
+
+          
         })
       }
     })
 
+  }
+
+  ionViewDidEnter(){
+    console.log(this.websocket.chatMessageCount);
+    this.chatMessageCount = this.websocket.chatMessageCount;
   }
 
 }

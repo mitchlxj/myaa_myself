@@ -1,0 +1,35 @@
+page-share {
+  .divtextarea {
+    width: 100%;
+    height: auto;
+    margin-left: auto; 
+    margin-right: auto; 
+    font-size: 15px;
+    line-height: 1;
+    word-wrap: break-word;
+    outline: 0; 
+    padding: 3px; 
+    border: 1px solid #a0b3d6; 
+    font-style: bold;
+    word-break: break-all;
+    white-space: normal;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-user-modify: read-write-plaintext-only; // 只是编辑text文本，只能解决webkit内核里面问题，手机端适用
+    -webkit-user-select: text; // 解决IOS部分手机不支持contenteditable=true属性问题
+  }
+  .titleText {
+    width: 100%;
+    height: auto;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+  .divtextarea:empty:before {
+    content: attr(placeholder);
+    font-size: 15px;
+    color:#9c9a9a;
+  }
+  .divtextarea:focus {
+    content: none;
+  }
+}

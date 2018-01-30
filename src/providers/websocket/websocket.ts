@@ -28,6 +28,8 @@ export class WebsocketProvider {
 
   ws: WebSocket;
 
+  public chatMessageCount = 0;
+
   constructor(
     public http: Http,
     public event: Events,
@@ -65,6 +67,11 @@ export class WebsocketProvider {
       case 'chat':
 
         this.event.publish('chat.received', tmpMessage, Date.now());
+       
+        this.chatMessageCount +=1;
+
+        console.log(this.chatMessageCount);
+
         break;
 
       case 'interval':

@@ -82,6 +82,7 @@ import { EmojiProvider } from '../providers/emoji/emoji';
 import { ChatserviceProvider } from '../providers/chatservice/chatservice';
 import { WebsocketProvider } from '../providers/websocket/websocket';
 import { LoginPageModule } from '../pages/login/login.module';
+import { SharePageModule } from '../pages/share/share.module';
 
 
 @NgModule({
@@ -109,6 +110,7 @@ import { LoginPageModule } from '../pages/login/login.module';
     ComponentsModule,
     ChatdetailsPageModule,
     FavoriatePageModule,
+    SharePageModule,
     HttpModule, //全局需要导入HTTP
     IonicModule.forRoot(MyApp, {
       backButtonText: '返回'

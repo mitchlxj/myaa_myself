@@ -83,6 +83,7 @@ export class ChatdetailsPage {
                 .subscribe(res => {
                   this.messageList = res;
                   this.scrollToBottom();
+                  this.webSocket.chatMessageCount = 0;
                 })
                 
             }, error => this.errorMessage = error);
@@ -97,6 +98,7 @@ export class ChatdetailsPage {
     this.event.subscribe('chat.received', (msg, time) => {
       this.messageList.push(msg);
       this.scrollToBottom();
+      this.webSocket.chatMessageCount = 0;
     })
 
   }

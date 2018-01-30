@@ -16,6 +16,7 @@ import {
   NotificationPage
 } from '../notification/notification';
 import { MorePage } from '../more/more';
+import { WebsocketProvider } from '../../providers/websocket/websocket';
 
 
 @Component({
@@ -29,7 +30,20 @@ export class TabsPage {
   tabNotification = NotificationPage;
   tabMore = MorePage;
 
-  constructor() {
+  tabBages = '';
+  chatMessageCount = 0;
+  constructor(public webSocket:WebsocketProvider) {
+
+    setInterval(()=>{
+      this.chatMessageCount = this.webSocket.chatMessageCount;
+      if(this.chatMessageCount ==0)
+      {
+        this.tabBages = '';
+      }else{
+        this.tabBages = this.chatMessageCount.toString();
+      }
+    },1000)
 
   }
+
 }

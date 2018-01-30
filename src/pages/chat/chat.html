@@ -15,19 +15,16 @@
 
 <ion-content>
   <ion-list>
-    <ion-item 
-    *ngFor="let user of users" 
-    [navPush]="chatdetailsPage" 
-    [navParams]="user" >
+    <ion-item *ngFor="let user of users" [navPush]="chatdetailsPage" [navParams]="user">
       <ion-avatar item-start>
-        <span [class.red-point]="false"></span>
-        <img src="{{user.UserHeadFace}}"/>
+        <span [class.red-point]="chatMessageCount>0"></span>
+        <img src="{{user.UserHeadFace}}" />
       </ion-avatar>
-     
+
       <h2>{{user.UserNickName}}</h2>
-      <ion-badge item-end color="danger">3</ion-badge>
+      <ion-badge item-end color="danger">{{chatMessageCount>0?chatMessageCount:''}}</ion-badge>
     </ion-item>
-    
+
   </ion-list>
 
 </ion-content>

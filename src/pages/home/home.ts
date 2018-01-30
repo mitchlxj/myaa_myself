@@ -9,6 +9,7 @@ import { ToastController } from 'ionic-angular/components/toast/toast-controller
 import { Tabs } from 'ionic-angular/components/tabs/tabs';
 import { DetailsPage } from '../details/details';
 import { FavoriatePage } from '../favoriate/favoriate';
+import { SharePage } from '../share/share';
 
 @Component({
   selector: 'page-home',
@@ -119,6 +120,11 @@ export class HomePage extends BaseUI{
 
   gotoFavourite(){
     this.navCtrl.push(FavoriatePage);
+  }
+
+
+  gotoShare(){
+    this.navCtrl.push(SharePage);
   }
 
 }
